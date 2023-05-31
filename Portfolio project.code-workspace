@@ -1,14 +1,35 @@
-{
-	"folders": [
-		{
-			"name": "Portfolio project",
-			"path": ".."
-		}
-	],
-	"settings": {
-		"dataworkspace.excludedProjects": [
-			"Portfolio project.sqlproj",
-			"Portfolio project/Portfolio project.sqlproj"
-		]
-	}
-}
+elect * from cardata;
+
+select * from cardata order by Kms_Driven desc;
+
+select Car_Name,sum(Selling_Price) as 'total selling price of the car' from cardata group by Car_Name order by 'Total selling price of the car' desc;
+
+Select Car_Name, [Year], MAX(Selling_Price) as msp from cardata group by Car_Name, year order by year asc, msp desc;
+
+select fuel_type, COUNT(car_name) number_of_cars from cardata group BY Fuel_Type;
+
+WITH check_duplicate AS (
+    select *, ROW_NUMBER() over(partition BY car_name, year, Selling_Price, present_price, Kms_Driven, fuel_type, seller_type, transmission, OWNER order by car_name)as rank from cardata)
+    select * from check_duplicate where rank>1;
+
+    select *, (present_price-Selling_Price) as difference_in_valuation from cardata;
+
+    select car_name, kms_driven from cardata where Kms_Driven=(select max(Kms_Driven) from cardata);
+
+    WITH cte AS (
+    select *, DENSE_RANK() over(order by Kms_Driven desc) as ranked_kms from cardata)
+    select * from cte where ranked_kms=2;
+
+    select *, case when transmission='manual' then 1
+              when transmission='automatic' then 2
+              else transmission 
+              end as transmission_in_num
+    from cardata
+
+    select year, COUNT(*) as number_of_cars_sold from cardata group by [Year] order by number_of_cars_sold desc;
+
+    select year, sum(selling_price) total_yearly_revenue from cardata group by YEAR order by total_yearly_revenue desc;
+
+    select *, 2023-YEAR as gap from cardata;
+
+    select car_name, fuel_type from cardata where Car_Name LIKE 'wagon r';
