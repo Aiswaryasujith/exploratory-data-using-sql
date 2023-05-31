@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"name": "Portfolio project",
+			"path": ".."
+		}
+	],
+	"settings": {
+		"dataworkspace.excludedProjects": [
+			"Portfolio project.sqlproj",
+			"Portfolio project/Portfolio project.sqlproj"
+		]
+	}
+}
