@@ -1,4 +1,4 @@
-elect * from cardata;
+select * from cardata;
 
 select * from cardata order by Kms_Driven desc;
 
